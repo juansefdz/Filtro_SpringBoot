@@ -36,7 +36,7 @@ public class QuestionsService implements IQuestionsService {
     private QuestionsResponse entityToResponse (Question question){
         QuestionsResponse questionsResponse = new QuestionsResponse();
         BeanUtils.copyProperties(question, questionsResponse);
-        //questionsResponse.setOptionQuestions();      
+        questionsResponse.setOptionQuestions(optionsQuestionsResponseInQuestions(question.getOptionQuestions()));      
         return questionsResponse;
     }
 

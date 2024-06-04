@@ -2,7 +2,8 @@ package com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse;
 
 import java.util.List;
 
-import com.riwi.filtroSpringBoot.domain.entities.OptionQuestion;
+import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.OptionQuestionResponseInQuestion.OptionsQuestionsResponseInQuestions;
+
 
 
 import lombok.AllArgsConstructor;
@@ -21,5 +22,5 @@ public class QuestionsResponse {
     private String type;
     private boolean active;
 
-    private List <OptionQuestion> optionQuestions;
+    private List <OptionsQuestionsResponseInQuestions> optionQuestions;
 }
