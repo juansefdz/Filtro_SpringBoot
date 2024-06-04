@@ -1,6 +1,9 @@
 package com.riwi.filtroSpringBoot.api.dto.response.UserResponse;
 
-import java.time.LocalDate;
+
+
+
+import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -21,7 +24,7 @@ public class SurveyResponseInUser {
     @Schema(description = "description of  the survey") // SWAGGER
     private String description;
     @Schema(description = "Date of  the survey") // SWAGGER
-    private LocalDate creationDate;
+    private Date creationDate;
     @Schema(description = "status of  the survey") // SWAGGER
     private boolean active;
     

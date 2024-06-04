@@ -14,5 +14,6 @@ import lombok.experimental.SuperBuilder;
 public class BaseErrorResponse implements Serializable {
     private String status;
     private Integer code;
+    private String message;
 
 }

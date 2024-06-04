@@ -38,7 +38,6 @@ public class UserRequest {
     @NotBlank(
         message = "The password is required")       // validation
     private String password;
-    
     @Schema(
         description = "state of the user")       // SWAGGER
     private boolean active;
