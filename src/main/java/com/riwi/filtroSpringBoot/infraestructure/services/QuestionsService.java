@@ -1,5 +1,8 @@
 package com.riwi.filtroSpringBoot.infraestructure.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.filtroSpringBoot.api.dto.request.QuestionsRequest;
 import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.QuestionsResponse;
+import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.OptionQuestionResponseInQuestion.OptionsQuestionsResponseInQuestions;
+import com.riwi.filtroSpringBoot.domain.entities.OptionQuestion;
 import com.riwi.filtroSpringBoot.domain.entities.Question;
 import com.riwi.filtroSpringBoot.domain.repositories.OptionsQuestionsRepository;
 import com.riwi.filtroSpringBoot.domain.repositories.QuestionsRepository;
@@ -23,9 +28,6 @@ public class QuestionsService implements IQuestionsService {
 
     @Autowired
     private final  QuestionsRepository questionsRepository;
-    @Autowired
-    private final  OptionsQuestionsRepository optionsQuestionsRepository;
-    
     
     private Question requestToEntity(QuestionsRequest request) {
         Question question = new Question();
@@ -74,5 +76,22 @@ public class QuestionsService implements IQuestionsService {
     public void delete(Integer id) {
         this.questionsRepository.delete(this.find(id));
     }
+
+
+     private List<OptionsQuestionsResponseInQuestions> optionsQuestionsResponseInQuestions(List<OptionQuestion> optionQuestions) {
+        return optionQuestions.stream()
+                .map(question -> {
+                    OptionsQuestionsResponseInQuestions optionsQuestionsResponseInQuestions = new OptionsQuestionsResponseInQuestions();
+                    optionsQuestionsResponseInQuestions.setIdOptionQuestion(question.getIdOptionQuestion());
+                    optionsQuestionsResponseInQuestions.setIdQuestion(question.getQuestion().getIdQuestion());
+                    optionsQuestionsResponseInQuestions.setText(question.getText());
+                    optionsQuestionsResponseInQuestions.setActive(question.isActive());
+
+                    
+                    return optionsQuestionsResponseInQuestions;
+                })
+                .collect(Collectors.toList());
+    }
+
     
 }

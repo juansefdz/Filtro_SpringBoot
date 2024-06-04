@@ -1,7 +1,4 @@
-package com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse;
-
-
-import com.riwi.filtroSpringBoot.domain.entities.Question;
+package com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.OptionQuestionResponseInQuestion;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OptionsQuestionsResponse {
+public class OptionsQuestionsResponseInQuestions {
 
     private int idOptionQuestion;
     private String text;
-    private String type;
     private boolean active;
-
-    private Question question;
+    private int idQuestion;
     
 }

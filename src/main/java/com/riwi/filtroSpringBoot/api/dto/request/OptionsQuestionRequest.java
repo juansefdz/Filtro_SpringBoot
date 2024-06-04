@@ -25,5 +25,7 @@ public class OptionsQuestionRequest {
     private String text;
     @NotNull (message = "The state can bee null")
     private boolean active;
+
+    private int idQuestion;
     
 }

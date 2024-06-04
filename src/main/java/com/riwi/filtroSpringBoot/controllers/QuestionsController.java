@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.filtroSpringBoot.api.dto.request.QuestionsRequest;
-import com.riwi.filtroSpringBoot.api.dto.request.UserRequest;
 import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.QuestionsResponse;
-import com.riwi.filtroSpringBoot.api.dto.response.UserResponse.UserResponse;
 import com.riwi.filtroSpringBoot.infraestructure.abstract_services.IQuestionsService;
-import com.riwi.filtroSpringBoot.infraestructure.abstract_services.IUserEntityService;
 import com.riwi.filtroSpringBoot.util.enums.SortType;
 import com.riwi.filtroSpringBoot.util.exceptions.ResourceNotFoundException;
 
