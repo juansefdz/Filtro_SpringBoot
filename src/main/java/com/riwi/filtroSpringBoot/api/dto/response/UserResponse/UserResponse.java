@@ -24,8 +24,6 @@ public class UserResponse {
     private String email;
     @Schema(description = "State of the user")      // SWAGGER
     private boolean active;
-
-
     
     @Schema(description = "List of surveys related to the user") // SWAGGER
     private List<SurveyResponseInUser> surveys;

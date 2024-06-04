@@ -64,7 +64,11 @@ public class UserEntityService implements IUserEntityService{
         if (request.getName()!=null) user.setName(request.getName());
         if (request.getEmail()!=null) user.setEmail(request.getEmail());
         if (request.getPassword()!=null)user.setPassword(request.getPassword());
-
+        if (request.getPassword()!=null)user.setPassword(request.getPassword());
+        user.setActive(request.isActive()); 
+            
+        
+      
         return this.entityToResponse(this.userRepository.save(user));
     }
     
