@@ -1,7 +1,8 @@
 package com.riwi.filtroSpringBoot.domain.entities;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class Survey {
     @Column(name = "description")
     private String description;
     @Column(name = "creation_date", nullable = false)
-    private LocalDate creationDate;
+    private Date creationDate;
     @Column(name = "active", nullable = false)
     private boolean active;
 
