@@ -1,6 +1,8 @@
 package com.riwi.filtroSpringBoot.infraestructure.services;
 
 
+import java.util.Objects;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import com.riwi.filtroSpringBoot.domain.entities.Survey;
 import com.riwi.filtroSpringBoot.domain.repositories.SurveyRepository;
 
 import com.riwi.filtroSpringBoot.infraestructure.abstract_services.ISurveyService;
+import com.riwi.filtroSpringBoot.infraestructure.helpers.EmailHelper;
 import com.riwi.filtroSpringBoot.util.enums.SortType;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -26,6 +29,7 @@ public class SurveyService implements ISurveyService{
      
     @Autowired
     private final SurveyRepository surveyRepository;
+    private final EmailHelper emailHelper;
     
 
     private Survey requestToEntity(SurveyRequest request) {
@@ -57,6 +61,10 @@ public class SurveyService implements ISurveyService{
     public SurveyResponse create(SurveyRequest request) {
 
         Survey survey = this.requestToEntity(request);
+
+        //  if (Objects.nonNull(survey.getUser().getEmail())) {
+        //      this.emailHelper.sendMail(survey.getUser().getEmail(), survey.getUser().getName(), null, null );
+        // }
         return this.entityToResponse(this.surveyRepository.save(survey));
     }
 
