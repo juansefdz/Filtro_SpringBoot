@@ -34,6 +34,8 @@ public class OptionQuestion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_question_id", referencedColumnName = "question_id")
     private Question question;
+
+    
     
    
     

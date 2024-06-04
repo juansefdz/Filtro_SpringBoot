@@ -1,8 +1,8 @@
 package com.riwi.filtroSpringBoot.infraestructure.services;
 
+
 import java.util.Objects;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,10 +12,11 @@ import org.springframework.stereotype.Service;
 import com.riwi.filtroSpringBoot.api.dto.request.SurveyRequest;
 import com.riwi.filtroSpringBoot.api.dto.response.SurveyResponse.SurveyResponse;
 import com.riwi.filtroSpringBoot.domain.entities.Survey;
-import com.riwi.filtroSpringBoot.domain.entities.UserEntity;
+
 import com.riwi.filtroSpringBoot.domain.repositories.SurveyRepository;
-import com.riwi.filtroSpringBoot.domain.repositories.UserRepository;
+
 import com.riwi.filtroSpringBoot.infraestructure.abstract_services.ISurveyService;
+import com.riwi.filtroSpringBoot.infraestructure.helpers.EmailHelper;
 import com.riwi.filtroSpringBoot.util.enums.SortType;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -28,8 +29,8 @@ public class SurveyService implements ISurveyService{
      
     @Autowired
     private final SurveyRepository surveyRepository;
-    @Autowired
-    private final UserRepository userRepository;
+    private final EmailHelper emailHelper;
+    
 
     private Survey requestToEntity(SurveyRequest request) {
         Survey survey = new Survey();
@@ -60,6 +61,10 @@ public class SurveyService implements ISurveyService{
     public SurveyResponse create(SurveyRequest request) {
 
         Survey survey = this.requestToEntity(request);
+
+        //  if (Objects.nonNull(survey.getUser().getEmail())) {
+        //      this.emailHelper.sendMail(survey.getUser().getEmail(), survey.getUser().getName(), null, null );
+        // }
         return this.entityToResponse(this.surveyRepository.save(survey));
     }
 

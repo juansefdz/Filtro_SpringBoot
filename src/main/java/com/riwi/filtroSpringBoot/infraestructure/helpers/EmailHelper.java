@@ -17,23 +17,24 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 
-/* @Component
+@Component
 @AllArgsConstructor
 public class EmailHelper {
     private final JavaMailSender mailSender;
 
 
-    public void sendMail(String destinity, String nameClient, String nameEmployee, LocalDateTime date){
+    public void sendMail(String destinity, String mail, String user,LocalDateTime date){
         MimeMessage message = mailSender.createMimeMessage();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         String dateAppointment = date.format(formatter);
-        String htmlContent = this.readHTMLTemplate(nameClient, nameEmployee, dateAppointment);
+
+        String htmlContent = this.readHTMLTemplate(mail, user, dateAppointment);
 
         try {
-            message.setFrom(new InternetAddress("kwmejia9@gmail.com"));
-            message.setSubject("Confirmación de cita en Beauty Salon");
+            message.setFrom(new InternetAddress("juanse.fermon@gmail.com"));
+            message.setSubject("survey successfully created ");
 
             message.setRecipients(MimeMessage.RecipientType.TO,destinity);
             message.setContent(htmlContent,MediaType.TEXT_HTML_VALUE);
@@ -64,4 +65,4 @@ public class EmailHelper {
 }
     
 
- */
+ 

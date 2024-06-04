@@ -1,4 +1,4 @@
-package com.riwi.filtroSpringBoot.controllers;
+package com.riwi.filtroSpringBoot.api.controllers;
 
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
