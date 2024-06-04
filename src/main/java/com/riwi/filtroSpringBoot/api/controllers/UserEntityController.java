@@ -1,7 +1,7 @@
-package com.riwi.filtroSpringBoot.controllers;
+package com.riwi.filtroSpringBoot.api.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.riwi.filtroSpringBoot.api.dto.request.QuestionsRequest;
-import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.QuestionsResponse;
-import com.riwi.filtroSpringBoot.infraestructure.abstract_services.IQuestionsService;
+import com.riwi.filtroSpringBoot.api.dto.request.UserRequest;
+import com.riwi.filtroSpringBoot.api.dto.response.UserResponse.UserResponse;
+import com.riwi.filtroSpringBoot.infraestructure.abstract_services.IUserEntityService;
 import com.riwi.filtroSpringBoot.util.enums.SortType;
 import com.riwi.filtroSpringBoot.util.exceptions.ResourceNotFoundException;
 
@@ -27,16 +27,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping(path = "/questions")
+@RequestMapping(path = "/users")
 @AllArgsConstructor
-@Tag(name = "Questions Entity Controller")
-
-public class QuestionsController {
-
+@Tag(name = "User Entity Controller")
+public class UserEntityController {
 
 
     @Autowired
-    private final IQuestionsService iQuestionsService;
+    private final IUserEntityService iUserEntityService;
 
     /*----------------------------
      * GET ALL
@@ -44,7 +42,7 @@ public class QuestionsController {
      */
 
      @Operation(
-        summary = "Displays all Questions",
+        summary = "Displays all Users",
         description = "Displays the Users in a list, it is configured to display 10 items per page."
     )
     @ApiResponses(value = {
@@ -55,12 +53,12 @@ public class QuestionsController {
         @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
      @GetMapping
-    public ResponseEntity<Page<QuestionsResponse>> getAll(
+    public ResponseEntity<Page<UserResponse>> getAll(
             @Parameter(description = "Page number (default: 1)", example = "1") // SWAGGER
             @RequestParam(defaultValue = "1") int page,
             @Parameter(description = "Number of items per page (default: 10)", example = "10") // SWAGGER
             @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(this.iQuestionsService.getAll(page - 1, size, SortType.NONE));
+        return ResponseEntity.ok(this.iUserEntityService.getAll(page - 1, size, SortType.NONE));
     }
 
 
@@ -70,8 +68,8 @@ public class QuestionsController {
      */
 
     @Operation(
-        summary = "Displays one question by id",
-        description = "Shows the question by the ID sent or requested by path,value cannot be less than 1."
+        summary = "Displays one user by id",
+        description = "Shows the user by the ID sent or requested by path,value cannot be less than 1."
     ) //SWAGGER
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
@@ -80,26 +78,26 @@ public class QuestionsController {
         @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
         @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @GetMapping(path = "/{question_id}")
-    public ResponseEntity<QuestionsResponse> getById(
-        @Parameter(description = "Question ID",example = "1") // SWAGGER
-        @PathVariable Integer question_id) {
+    @GetMapping(path = "/{user_id}")
+    public ResponseEntity<UserResponse> getById(
+        @Parameter(description = "User ID",example = "1") // SWAGGER
+        @PathVariable Integer user_id) {
 
-        QuestionsResponse question = this.iQuestionsService.getById(question_id);
-        if (question == null) {
-            throw new ResourceNotFoundException("Question not found");
+        UserResponse user = this.iUserEntityService.getById(user_id);
+        if (user == null) {
+            throw new ResourceNotFoundException("User not found");
         }
-        return ResponseEntity.ok(question);
+        return ResponseEntity.ok(user);
     }
 
      /*--------------------
-     * CREATE QUESTION
+     * CREATE USER
      * -------------------
      */
 
     @Operation(
-        summary = "creates a new question",
-        description = "create a new question by entering the required data"
+        summary = "creates a new user",
+        description = "create a new user by entering the required data"
     ) //SWAGGER
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
@@ -109,18 +107,18 @@ public class QuestionsController {
         @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping(path = "/create")
-    public ResponseEntity<QuestionsResponse> create(@Validated @RequestBody QuestionsRequest request) {
-        return ResponseEntity.ok(this.iQuestionsService.create(request));
+    public ResponseEntity<UserResponse> create(@Validated @RequestBody UserRequest request) {
+        return ResponseEntity.ok(this.iUserEntityService.create(request));
     }
 
      /*----------------------
-     * UPDATE QUESTION
+     * UPDATE USER
      * ---------------------
      */
 
      @Operation(
-        summary = "update  question by ID",
-        description = "updates a previously created question and the ID and the new modified parameters must be sent through the Path, value cannot be less than 1"
+        summary = "update  user by ID",
+        description = "updates a previously created user and the ID and the new modified parameters must be sent through the Path, value cannot be less than 1"
     ) //SWAGGER
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "SUCCESSFUL"),
@@ -129,12 +127,13 @@ public class QuestionsController {
         @ApiResponse(responseCode = "403", description = "FORBIDDEN ACCESS"),
         @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @PutMapping(path = "/{question_id}")
-    public ResponseEntity<QuestionsResponse> update(@Validated @RequestBody QuestionsRequest request, 
+    @PutMapping(path = "/{user_id}")
+    public ResponseEntity<UserResponse> update(@Validated @RequestBody UserRequest request, 
         @Parameter(description = "User ID",example = "1") // SWAGGER
-        @PathVariable Integer question_id) {
-        return ResponseEntity.ok(this.iQuestionsService.update(request, question_id));
+        @PathVariable Integer user_id) {
+        return ResponseEntity.ok(this.iUserEntityService.update(request, user_id));
     }
+
 
 
     
