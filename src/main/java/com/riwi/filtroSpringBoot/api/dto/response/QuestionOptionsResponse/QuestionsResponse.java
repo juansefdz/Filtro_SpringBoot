@@ -3,7 +3,7 @@ package com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse;
 import java.util.List;
 
 import com.riwi.filtroSpringBoot.domain.entities.OptionQuestion;
-import com.riwi.filtroSpringBoot.domain.entities.Survey;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -14,7 +14,6 @@ import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.Questi
 import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.OptionQuestionResponseInQuestion.OptionsQuestionsResponseInQuestions;
 import com.riwi.filtroSpringBoot.domain.entities.OptionQuestion;
 import com.riwi.filtroSpringBoot.domain.entities.Question;
-import com.riwi.filtroSpringBoot.domain.repositories.OptionsQuestionsRepository;
 import com.riwi.filtroSpringBoot.domain.repositories.QuestionsRepository;
 import com.riwi.filtroSpringBoot.infraestructure.abstract_services.IQuestionsService;
 import com.riwi.filtroSpringBoot.util.enums.SortType;
@@ -36,7 +35,8 @@ public class QuestionsService implements IQuestionsService {
     }
     private QuestionsResponse entityToResponse (Question question){
         QuestionsResponse questionsResponse = new QuestionsResponse();
-        BeanUtils.copyProperties(question, questionsResponse);      
+        BeanUtils.copyProperties(question, questionsResponse);
+        //questionsResponse.setOptionQuestions();      
         return questionsResponse;
     }
 
