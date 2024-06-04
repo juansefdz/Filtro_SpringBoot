@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 public class OptionsQuestionRequest {
 
 
-    @NotNull(message = "The Question ID is required") // Validation
+    @NotNull(
+        message = "The Question ID is required") // Validation
     private int idOptionQuestion;
     @Schema(
         description = "the answer of the question", 
@@ -23,9 +24,9 @@ public class OptionsQuestionRequest {
     @NotBlank(
         message = "The question is required")           // validation
     private String text;
-    @NotNull (message = "The state can bee null")
+    @NotNull (
+        message = "The state can bee null")
     private boolean active;
-
     private int idQuestion;
     
 }

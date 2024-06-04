@@ -23,9 +23,9 @@ public class QuestionsRequest {
     @NotBlank(
         message = "The question is required")           // validation
     private String text;
-
     private String type;
-    @NotNull (message = "The state can bee null")
+    @NotNull (
+        message = "The state can bee null")
     private boolean active;
 
     

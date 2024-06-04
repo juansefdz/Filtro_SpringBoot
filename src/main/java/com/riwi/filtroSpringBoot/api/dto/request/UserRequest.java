@@ -23,7 +23,7 @@ public class UserRequest {
         message = "The name is required")           // validation
      @Size(
         max = 50, 
-        message = "The name must have a maximum of 100 characters")                                 // validation
+        message = "The name must have a maximum of 100 characters")                    // validation
     private String name;
     @Schema(
         description = "Email of the user", 

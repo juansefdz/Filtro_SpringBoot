@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SurveyRequest {
-    @NotNull(message = "The survey ID is required") // Validation
+    @NotNull(
+        message = "The survey ID is required") // Validation
     private int surveyId;
     @Schema(
         description = "Name of the user", 
@@ -27,13 +28,11 @@ public class SurveyRequest {
      @Size(
         max = 50, 
         message = "The name must have a maximum of 100 characters")   
-    private String title;
-       // validation  
+    private String title; 
     private String description;
-
-    
     private Date creationDate;
-    @NotNull (message = "The state can bee null")
+    @NotNull (
+        message = "The state can bee null")
     private boolean active;
 
     private int Userid;
