@@ -28,18 +28,6 @@ public class QuestionsService implements IQuestionsService {
     @Autowired
     private final  QuestionsRepository questionsRepository;
     
-    private Question requestToEntity(QuestionsRequest request) {
-        Question question = new Question();
-        BeanUtils.copyProperties(request, question);
-        return question;
-    }
-    private QuestionsResponse entityToResponse (Question question){
-        QuestionsResponse questionsResponse = new QuestionsResponse();
-        BeanUtils.copyProperties(question, questionsResponse);
-        questionsResponse.setOptionQuestions(optionsQuestionsResponseInQuestions(question.getOptionQuestions()));      
-        return questionsResponse;
-    }
-
 
      @Override
     public Page<QuestionsResponse> getAll(int page, int size, SortType sortType) {
@@ -51,7 +39,6 @@ public class QuestionsService implements IQuestionsService {
         return questionsRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Question not found with id: " + id));
     }
-
 
     @Override
     public QuestionsResponse getById(Integer id) {
@@ -76,6 +63,25 @@ public class QuestionsService implements IQuestionsService {
     public void delete(Integer id) {
         this.questionsRepository.delete(this.find(id));
     }
+
+    /*----------
+     * DTO MANAGEMENT ZONE
+     * --------
+     */
+
+
+    private Question requestToEntity(QuestionsRequest request) {
+        Question question = new Question();
+        BeanUtils.copyProperties(request, question);
+        return question;
+    }
+    private QuestionsResponse entityToResponse (Question question){
+        QuestionsResponse questionsResponse = new QuestionsResponse();
+        BeanUtils.copyProperties(question, questionsResponse);
+        questionsResponse.setOptionQuestions(optionsQuestionsResponseInQuestions(question.getOptionQuestions()));      
+        return questionsResponse;
+    }
+
 
 
      private List<OptionsQuestionsResponseInQuestions> optionsQuestionsResponseInQuestions(List<OptionQuestion> optionQuestions) {

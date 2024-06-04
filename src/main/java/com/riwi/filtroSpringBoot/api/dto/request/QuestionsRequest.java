@@ -25,7 +25,7 @@ public class QuestionsRequest {
     private String text;
     private String type;
     @NotNull (
-        message = "The state can bee null")
+        message = "The state can bee null")             // validation
     private boolean active;
 
     

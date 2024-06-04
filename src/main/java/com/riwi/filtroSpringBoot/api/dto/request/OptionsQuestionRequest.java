@@ -16,16 +16,16 @@ public class OptionsQuestionRequest {
 
 
     @NotNull(
-        message = "The Question ID is required") // Validation
+        message = "The Question ID is required")        // Validation
     private int idOptionQuestion;
     @Schema(
         description = "the answer of the question", 
-        example = "a)2 b)4 c)1")                       // SWAGGER
+        example = "a)2 b)4 c)1")                        // SWAGGER
     @NotBlank(
         message = "The question is required")           // validation
     private String text;
     @NotNull (
-        message = "The state can bee null")
+        message = "The state can bee null")             // validation
     private boolean active;
     private int idQuestion;
     

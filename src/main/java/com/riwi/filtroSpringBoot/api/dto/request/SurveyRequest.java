@@ -32,7 +32,7 @@ public class SurveyRequest {
     private String description;
     private Date creationDate;
     @NotNull (
-        message = "The state can bee null")
+        message = "The state can bee null")         // validation
     private boolean active;
 
     private int Userid;
