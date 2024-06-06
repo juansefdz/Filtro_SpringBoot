@@ -1,5 +1,7 @@
 package com.riwi.filtroSpringBoot.api.dto.request;
 
+import java.util.List;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +17,6 @@ import lombok.NoArgsConstructor;
 public class QuestionsRequest {
 
 
-    @NotNull(message = "The Question ID is required") // Validation
-    private int idQuestion;
     @Schema(
         description = "the question", 
         example = "how is 2 + 2")                       // SWAGGER
@@ -27,6 +27,8 @@ public class QuestionsRequest {
     @NotNull (
         message = "The state can bee null")             // validation
     private boolean active;
+    @Schema(description = "List of option questions")
+    private List<OptionQuestionRequest> options;
 
     
 }

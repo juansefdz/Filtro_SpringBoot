@@ -1,7 +1,6 @@
 package com.riwi.filtroSpringBoot.infraestructure.services;
 
 
-import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,9 @@ import org.springframework.stereotype.Service;
 import com.riwi.filtroSpringBoot.api.dto.request.SurveyRequest;
 import com.riwi.filtroSpringBoot.api.dto.response.SurveyResponse.SurveyResponse;
 import com.riwi.filtroSpringBoot.domain.entities.Survey;
-
+import com.riwi.filtroSpringBoot.domain.entities.UserEntity;
 import com.riwi.filtroSpringBoot.domain.repositories.SurveyRepository;
-
+import com.riwi.filtroSpringBoot.domain.repositories.UserRepository;
 import com.riwi.filtroSpringBoot.infraestructure.abstract_services.ISurveyService;
 import com.riwi.filtroSpringBoot.infraestructure.helpers.EmailHelper;
 import com.riwi.filtroSpringBoot.util.enums.SortType;
@@ -29,12 +28,18 @@ public class SurveyService implements ISurveyService{
      
     @Autowired
     private final SurveyRepository surveyRepository;
+    private final UserRepository userRepository;
     private final EmailHelper emailHelper;
     
 
     private Survey requestToEntity(SurveyRequest request) {
         Survey survey = new Survey();
         BeanUtils.copyProperties(request, survey);
+        if (request.getUserid() != 0) {
+            UserEntity user = userRepository.findById(request.getUserid())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + request.getUserid()));
+            survey.setUser(user);
+        }
         return survey;
     }
 
@@ -58,15 +63,18 @@ public class SurveyService implements ISurveyService{
     }
 
     @Override
-    public SurveyResponse create(SurveyRequest request) {
+public SurveyResponse create(SurveyRequest request) {
+    Survey survey = this.requestToEntity(request);
 
-        Survey survey = this.requestToEntity(request);
+    if (survey.getUser() != null && survey.getUser().getEmail() != null) {
+        
+        this.emailHelper.sendMail(survey.getUser().getEmail(), survey.getUser().getName(), survey.getCreationDate());
+    } else {
+        throw new IllegalArgumentException ("Unable to send email because the user or his email address is null or does not exist.");  
+      }
 
-        //  if (Objects.nonNull(survey.getUser().getEmail())) {
-        //      this.emailHelper.sendMail(survey.getUser().getEmail(), survey.getUser().getName(), null, null );
-        // }
-        return this.entityToResponse(this.surveyRepository.save(survey));
-    }
+    return this.entityToResponse(this.surveyRepository.save(survey));
+}
 
     @Override
     public SurveyResponse update(SurveyRequest request, Integer id) {

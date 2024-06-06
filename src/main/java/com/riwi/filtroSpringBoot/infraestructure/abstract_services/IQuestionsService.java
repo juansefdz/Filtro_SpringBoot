@@ -5,5 +5,5 @@ import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.Questi
 
 
 public interface IQuestionsService extends CrudService<QuestionsRequest, QuestionsResponse, Integer>{
-    
+    QuestionsResponse updateQuestionText(String newText, Integer id);
 }

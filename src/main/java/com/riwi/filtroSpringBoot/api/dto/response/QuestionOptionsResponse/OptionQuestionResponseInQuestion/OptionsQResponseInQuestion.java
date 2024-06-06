@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OptionsQuestionsResponseInQuestions {
+public class OptionsQResponseInQuestion {
 
     @Schema(description = "ID of the OptionQuestion") // SWAGGER
     private int idOptionQuestion;

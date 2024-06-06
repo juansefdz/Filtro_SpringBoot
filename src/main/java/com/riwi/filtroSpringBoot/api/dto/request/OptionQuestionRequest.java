@@ -12,12 +12,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OptionsQuestionRequest {
+public class OptionQuestionRequest {
 
 
-    @NotNull(
-        message = "The Question ID is required")        // Validation
-    private int idOptionQuestion;
+    
     @Schema(
         description = "the answer of the question", 
         example = "a)2 b)4 c)1")                        // SWAGGER

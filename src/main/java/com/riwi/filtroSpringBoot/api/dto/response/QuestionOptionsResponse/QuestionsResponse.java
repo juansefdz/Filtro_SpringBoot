@@ -2,7 +2,7 @@ package com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse;
 
 import java.util.List;
 
-import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.OptionQuestionResponseInQuestion.OptionsQuestionsResponseInQuestions;
+import com.riwi.filtroSpringBoot.api.dto.response.QuestionOptionsResponse.OptionQuestionResponseInQuestion.OptionsQResponseInQuestion;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -24,5 +24,5 @@ public class QuestionsResponse {
     @Schema(description = "state of question") // SWAGGER
     private boolean active;
     @Schema(description = "Option Question in Question") // SWAGGER
-    private List <OptionsQuestionsResponseInQuestions> optionQuestions;
+    private List <OptionsQResponseInQuestion> optionQuestions;
 }

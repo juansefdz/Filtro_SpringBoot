@@ -1,12 +1,12 @@
 package com.riwi.filtroSpringBoot.infraestructure.helpers;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
@@ -22,13 +22,11 @@ import lombok.AllArgsConstructor;
 public class EmailHelper {
     private final JavaMailSender mailSender;
 
-
-    public void sendMail(String destinity, String mail, String user,LocalDateTime date){
+    public void sendMail(String mail, String user, Date date) {
         MimeMessage message = mailSender.createMimeMessage();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        String dateAppointment = date.format(formatter);
+        String dateAppointment = formatter.format(date.toInstant().atZone(ZoneId.systemDefault()));
 
         String htmlContent = this.readHTMLTemplate(mail, user, dateAppointment);
 
@@ -36,8 +34,8 @@ public class EmailHelper {
             message.setFrom(new InternetAddress("juanse.fermon@gmail.com"));
             message.setSubject("survey successfully created ");
 
-            message.setRecipients(MimeMessage.RecipientType.TO,destinity);
-            message.setContent(htmlContent,MediaType.TEXT_HTML_VALUE);
+            message.setRecipients(MimeMessage.RecipientType.TO, mail);
+            message.setContent(htmlContent, MediaType.TEXT_HTML_VALUE);
 
             mailSender.send(message);
             System.out.println("Email enviado");
@@ -48,12 +46,11 @@ public class EmailHelper {
         }
     }
 
-
-    private String readHTMLTemplate(String nameClient, String nameEmployee, String date){
-        //Indicar en donde se encuentra el template
+    private String readHTMLTemplate(String nameClient, String nameEmployee, String date) {
+        // Indicar en donde se encuentra el template
         final Path path = Paths.get("src/main/resources/emails/email_template.html");
 
-        try (var lines = Files.lines(path)){
+        try (var lines = Files.lines(path)) {
             var html = lines.collect(Collectors.joining());
 
             return html.replace("{name}", nameClient).replace("{employee}", nameEmployee).replace("{date}", date);
@@ -63,6 +60,3 @@ public class EmailHelper {
         }
     }
 }
-    
-
- 
